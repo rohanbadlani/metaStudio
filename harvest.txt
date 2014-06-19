@@ -1,0 +1,25 @@
+1. Wiki: Any data that is created as a result of a collaborative effort made by a lot of individuals. It differs from a blog in the sense that there is no clearly defined owner. <It is a type of CMS>
+	
+	A wiki has no set structure, but the structure should emerge as and according to the contrebutions of the users
+
+	Advantages of Wiki: 	knowledge Management, Notetaking, Community Interactions and Intranets.
+
+2. FreeBase:
+	Data kept as a graph - Why graph? because newer info can be easily added as an objecta nd linked to the previous data.
+	
+3. Structure of Data Dumps in the free base:
+	first 5 lines:	 URIs prefixes used in the RDF triples.
+	Then the triples are present which consist of 3 most important things:
+		1. Subject
+		2. Predicate 
+		3. object
+
+	Subject is like a Freebase ID - /m/<hash key> referenced as m.<hash-key> in the RDF format
+
+	Predicate of the triple is always a human readable key
+	Sometimes freebase foreign key ids may also be used as the predicates of the topics. 
+
+4. YAGO:
+	It is a way to structure the data so that its existence can be made sense. The Yago structure provides to it both a time and space dimension.
+
+	
