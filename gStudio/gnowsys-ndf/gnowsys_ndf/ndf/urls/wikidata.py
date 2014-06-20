@@ -1,0 +1,5 @@
+from django.conf.urls import patterns, url
+
+urlpatterns = patterns('gnowsys_ndf.ndf.views.wikidata',
+                        url(r'^$', 'index', name='wikidata_main'),
+                       )

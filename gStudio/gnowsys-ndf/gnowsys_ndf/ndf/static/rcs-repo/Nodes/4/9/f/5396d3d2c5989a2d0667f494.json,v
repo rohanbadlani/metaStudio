@@ -1,0 +1,70 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2014.06.10.09.45.54;	author rohan;	state Exp;
+branches;
+next	;
+
+
+desc
+@This document (home2) is created by rohan on 10 June 2014
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{
+    "_id": {
+        "$oid": "5396d3d2c5989a2d0667f494"
+    },
+    "_type": "Group",
+    "access_policy": null,
+    "altnames": "home2",
+    "author_set": [],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [
+        1
+    ],
+    "created_at": 1402413354471,
+    "created_by": 1,
+    "disclosure_policy": "DISCLOSED_TO_MEM",
+    "edit_policy": "EDITABLE_NON_MODERATED",
+    "encryption_policy": "NOT_ENCRYPTED",
+    "featured": null,
+    "group_set": [],
+    "group_type": "PUBLIC",
+    "language": null,
+    "last_update": 1402413354471,
+    "location": [],
+    "login_required": null,
+    "member_of": [
+        {
+            "$oid": "53846008c5989a11fc8e0f10"
+        }
+    ],
+    "modified_by": 1,
+    "module_set": [],
+    "name": "home2",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "property_order": [],
+    "start_publication": null,
+    "status": "DRAFT",
+    "subscription_policy": "OPEN",
+    "tags": [],
+    "type_of": [],
+    "url": null,
+    "visibility_policy": "ANNOUNCED"
+}@

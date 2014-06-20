@@ -1,0 +1,106 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.3
+date	2014.06.10.09.48.54;	author rohan;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2014.06.10.09.48.43;	author rohan;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2014.06.10.09.47.53;	author rohan;	state Exp;
+branches;
+next	;
+
+
+desc
+@This document (testpagehome2) is created by rohan on 10 June 2014
+@
+
+
+1.3
+log
+@This document (testpagehome2) is lastly updated by rohan status:DRAFT on 10 June 2014
+@
+text
+@{
+    "_id": {
+        "$oid": "5396d449c5989a2da08412fc"
+    },
+    "_type": "GSystem",
+    "access_policy": "PUBLIC",
+    "altnames": null,
+    "author_set": [],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [
+        1
+    ],
+    "created_at": 1402413473909,
+    "created_by": 1,
+    "featured": null,
+    "group_set": [
+        {
+            "$oid": "5396d3d2c5989a2d0667f494"
+        }
+    ],
+    "language": "hi",
+    "last_update": 1402413534948,
+    "location": [],
+    "login_required": null,
+    "member_of": [
+        {
+            "$oid": "53846008c5989a11fc8e0f0e"
+        }
+    ],
+    "modified_by": 1,
+    "module_set": [],
+    "name": "testpagehome2",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "property_order": [],
+    "start_publication": null,
+    "status": "DRAFT",
+    "tags": [
+        "test"
+    ],
+    "type_of": [],
+    "url": null
+}@
+
+
+1.2
+log
+@This document (testpagehome2) is lastly updated by rohan status:DRAFT on 10 June 2014
+@
+text
+@d24 2
+a25 2
+    "language": "en",
+    "last_update": 1402413523147,
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d25 1
+a25 1
+    "last_update": 1402413473909,
+d42 3
+a44 1
+    "tags": [],
+@

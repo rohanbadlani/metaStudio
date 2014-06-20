@@ -1,0 +1,61 @@
+head	1.1;
+access;
+symbols;
+locks
+	rohan:1.1; strict;
+comment	@# @;
+
+
+1.1
+date	2014.06.19.05.28.25;	author rohan;	state Exp;
+branches;
+next	;
+
+
+desc
+@This document (Theme) is created by rohan on 19 June 2014
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{
+    "_id": {
+        "$oid": "53a274f9c5989a3ee987d323"
+    },
+    "_type": "GSystemType",
+    "access_policy": null,
+    "altnames": null,
+    "attribute_type_set": [],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [],
+    "created_at": 1403175505735,
+    "created_by": 1,
+    "featured": null,
+    "group_set": [],
+    "language": null,
+    "last_update": 1403175505735,
+    "location": [],
+    "login_required": null,
+    "member_of": [],
+    "meta_type_set": [],
+    "modified_by": null,
+    "name": "Theme",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "process_type_set": [],
+    "property_order": [],
+    "relation_type_set": [],
+    "start_publication": null,
+    "status": "DRAFT",
+    "tags": [],
+    "type_of": [],
+    "url": null
+}@

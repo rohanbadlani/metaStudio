@@ -1,0 +1,18 @@
+#from gnowsys_ndf.ndf.models import *
+
+	
+def create_GSytemType():
+	collection = get_database()[Node.collection_name]
+	instance = collection.GSystemType()
+	instance.name = u'Topic'
+	instance.created_by = int(1)
+	instance.save
+
+def hello():
+	print "hello_world!"
+
+
+
+hello()	
+	
+		

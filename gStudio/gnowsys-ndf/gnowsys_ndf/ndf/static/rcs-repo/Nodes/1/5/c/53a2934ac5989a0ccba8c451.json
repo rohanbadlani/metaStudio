@@ -1,0 +1,45 @@
+{
+    "_id": {
+        "$oid": "53a2934ac5989a0ccba8c451"
+    },
+    "_type": "GSystemType",
+    "access_policy": null,
+    "altnames": null,
+    "attribute_type_set": [],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [],
+    "created_at": 1403183266781,
+    "created_by": 1,
+    "featured": null,
+    "group_set": [],
+    "language": null,
+    "last_update": 1403189760301,
+    "location": [],
+    "login_required": null,
+    "member_of": [
+        {
+            "$oid": "5396d669c5989a30ec23e8be"
+        }
+    ],
+    "meta_type_set": [],
+    "modified_by": null,
+    "name": "Topic",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "process_type_set": [],
+    "property_order": [],
+    "relation_type_set": [],
+    "start_publication": null,
+    "status": "DRAFT",
+    "tags": [],
+    "type_of": [
+        {
+            "$oid": "53a2934ac5989a0ccba8c44f"
+        }
+    ],
+    "url": null
+}

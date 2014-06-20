@@ -1,0 +1,166 @@
+{
+    "_id": {
+        "$oid": "53a2934ac5989a0ccba8c44f"
+    },
+    "_type": "GSystemType",
+    "access_policy": null,
+    "altnames": null,
+    "attribute_type_set": [
+        {
+            "_id": {
+                "$oid": "5396d669c5989a30ec23e8db"
+            },
+            "_type": "AttributeType",
+            "access_policy": null,
+            "altnames": null,
+            "applicable_node_type": [],
+            "auto_now": null,
+            "auto_now_add": null,
+            "blank": null,
+            "collection_set": [],
+            "comment_enabled": null,
+            "complex_data_type": [],
+            "content": null,
+            "content_org": null,
+            "contributors": [
+                1
+            ],
+            "created_at": 1402414017919,
+            "created_by": 1,
+            "data_type": "list",
+            "decimal_places": null,
+            "default": null,
+            "editable": null,
+            "featured": null,
+            "group_set": [],
+            "help_text": null,
+            "label": null,
+            "language": null,
+            "last_update": 1402414017920,
+            "location": [],
+            "login_required": null,
+            "max_digits": null,
+            "member_of": [
+                {
+                    "$oid": "5396d669c5989a30ec23e8be"
+                }
+            ],
+            "min_length": null,
+            "modified_by": 1,
+            "name": "apps_list",
+            "null": null,
+            "path": null,
+            "plural": null,
+            "post_node": [],
+            "prior_node": [],
+            "property_order": [],
+            "required": null,
+            "start_publication": null,
+            "status": "DRAFT",
+            "subject_type": [
+                {
+                    "$oid": "5396d669c5989a30ec23e8c1"
+                }
+            ],
+            "tags": [],
+            "type_of": [],
+            "unique": null,
+            "upload_to": null,
+            "url": null,
+            "validators": [],
+            "verbose_name": null,
+            "verify_exist": null
+        }
+    ],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [],
+    "created_at": 1403183266744,
+    "created_by": 1,
+    "featured": null,
+    "group_set": [],
+    "language": null,
+    "last_update": 1403189820514,
+    "location": [],
+    "login_required": null,
+    "member_of": [
+        {
+            "$oid": "5396d668c5989a30ec23e8bd"
+        }
+    ],
+    "meta_type_set": [],
+    "modified_by": null,
+    "name": "WikiData",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "process_type_set": [],
+    "property_order": [],
+    "relation_type_set": [
+        {
+            "_id": {
+                "$oid": "5396d669c5989a30ec23e8cf"
+            },
+            "_type": "RelationType",
+            "access_policy": null,
+            "altnames": null,
+            "collection_set": [],
+            "comment_enabled": null,
+            "content": null,
+            "content_org": null,
+            "contributors": [
+                1
+            ],
+            "created_at": 1402414017599,
+            "created_by": 1,
+            "featured": null,
+            "group_set": [],
+            "inverse_name": "shelf_of",
+            "is_reflexive": null,
+            "is_symmetric": null,
+            "is_transitive": null,
+            "language": null,
+            "last_update": 1402414017599,
+            "location": [],
+            "login_required": null,
+            "member_of": [
+                {
+                    "$oid": "5396d669c5989a30ec23e8be"
+                }
+            ],
+            "modified_by": 1,
+            "name": "has_shelf",
+            "object_applicable_nodetype": null,
+            "object_cardinality": null,
+            "object_type": [
+                {
+                    "$oid": "5396d669c5989a30ec23e8cc"
+                }
+            ],
+            "plural": null,
+            "post_node": [],
+            "prior_node": [],
+            "property_order": [],
+            "slug": null,
+            "start_publication": null,
+            "status": "DRAFT",
+            "subject_applicable_nodetype": null,
+            "subject_cardinality": null,
+            "subject_type": [
+                {
+                    "$oid": "5396d669c5989a30ec23e8cb"
+                }
+            ],
+            "tags": [],
+            "type_of": [],
+            "url": null
+        }
+    ],
+    "start_publication": null,
+    "status": "DRAFT",
+    "tags": [],
+    "type_of": [],
+    "url": null
+}

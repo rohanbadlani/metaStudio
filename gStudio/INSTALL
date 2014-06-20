@@ -1,0 +1,124 @@
+* INSTALLATION Procedure for for gstudio-mongokit
+
+If you are on a debian or Ubuntu PC install the following packages.
+Use corresponding package names if you are using an RPM based distro
+(fedora or centos). 
+
+
+1. Installing required packages and its dependencies
+
+#+BEGIN_EXAMPLE
+sudo apt-get install python-setuptools git build-essential python-dev rcs mongodb emacs24 python-virtualenv libjpeg-dev ffmpeg ffmpeg2theora
+#+END_EXAMPLE
+
+2. Get latest version of gstudio-mongokit
+
+#+BEGIN_EXAMPLE
+git clone git@github.com:gnowledge/gstudio.git
+cd gstudio
+virtualenv --system-site-packages .
+./bin/pip install -r requirements.txt
+#+END_EXAMPLE
+
+
+3. Incase your distribution of GNU/Linux is not latest, you may not
+   find emacs24 in your repos.  In that case, satisfy the requirement
+   by following these instructions:
+
+    (1) sudo add-apt-repository ppa:cassou/emacs
+    (2) sudo apt-get update
+    (3) sudo apt-get install emacs24 emacs24-el emacs24-common-non-dfsg
+
+4. setting up Emacs working environment:
+
+   Create a init file for emacs default settings @ path "~/.emacs"
+   with following code in it:
+
+For org-version < 8.0
+
+
+#+BEGIN_EXAMPLE
+(custom-set-variables
+             '(inhibit-startup-screen t)
+             '(org-export-html-preamble nil)
+             '(org-export-html-postamble nil)
+             '(org-export-html-validation-link nil)
+              )
+#+END_EXAMPLE
+
+For org-version >= 8.0
+
+#+BEGIN_EXAMPLE
+(custom-set-variables
+             '(inhibit-startup-screen t)
+             '(org-html-preamble nil)
+             '(org-html-postamble nil)
+             '(org-html-validation-link nil)
+             )
+#+END_EXAMPLE
+
+5. SMTP configuration for notifications
+ 
+   (1) To make SMTP server ready for sending mail (development purpose only) -
+
+       There are two options: 
+       1. After running project, run following command: python -m
+          smtpd -n -c DebuggingServer localhost:1025 (This will ready
+          to listen smtp messages and will print in terminal)
+
+       2. To use gmail smtp server: (If you have another smarthost to
+          deliver use that instead)
+	
+	(a) Go to settings.py file and search for "#SMTP setting for
+	sending mail" and uncomment gmail smtp setting and comment
+	default python smtp settings.  
+
+	(b) Edit following with your gmail credentials and save
+	settings.py file - EMAIL_HOST_USER = 'yourcompleteemailid'
+	EMAIL_HOST_PASSWORD = 'yourpassword'
+						 
+6. Installation of MathJax (required for rendering MathML symbols)
+   
+      (1) To install MathJax on your own server, download the
+          distribution from the following link:
+          "http://www.mathjax.org/download/" 
+
+       (2) Simply unzip the downloaded archive, rename it to 'mathjax'
+          (all in smallcaps) and put it under django-application's
+          "static" directory.
+
+
+7. Final Steps: 
+ 
+  To run "gstudio-mongokit" project, perform the following steps: 
+
+  (1) Make sure you are in the virtual­env-folder and it's activated
+    (source bin/activate).  
+
+  (2) Move to gnowsys­ndf folder: cd gstudio/gnowsys-ndf 
+
+  (3) Start mongodb server: sudo service mongodb start 
+
+  (4) Run the following commands: 
+
+      (a) python manage.py initrcsrepo 
+
+      (b) python manage.py filldb 
+
+      (c) python manage.py syncdb 
+
+      (d) python manage.py runserver 
+
+      NOTE: Always run (c) & (d) commands together.
+
+After running (d) point your browser to http://localhost:8000 to see
+gstudio on your browser.  Enjoy.  
+
+Since gstudio is frequently updated, please obtain the latest code
+from git repo. After each update run (b) before running (d).
+
+Any issues with this procedure or you need any further help, or to
+file bugs etc. visit ask us in the mailing list:
+
+http://gnowledge.org/cgi-bin/mailman/listinfo/gnowsys-dev
+

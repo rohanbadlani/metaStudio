@@ -1,0 +1,185 @@
+{% extends "ndf/node_details_base.html" %}
+{% load ndf_tags %}
+from django.contrib.auth.decorators import login_required
+{% block title %} Group Dashboard {% endblock %}
+
+{% block head %}
+
+<script type="text/javascript" >
+  var chk_login = "{{ user }}";
+</script>
+
+<!-- Ajax for getting user List  -->
+<script type="text/javascript">
+  jQuery(document).ready(function($) { 
+  $('#btn_list_member').on("click",function() {
+  var ajurl ="{% url 'get_author_set_users' groupid %}?_id={{node.pk}}";
+  $.ajax({
+         url:ajurl,
+  success: function(data){
+  $('#firstModal').html(data); },
+  }); });
+  });
+
+</script> 
+<!-- End Ajax -->
+
+
+<script type="text/javascript">
+//function to toggle the lable Join and Unsubscribe
+function change_label(label)
+{   
+	if(chk_login=="AnonymousUser")
+	{  document.location.href = '/accounts/login/';
+        }
+        else if(label == "Join")
+        {  $("#notify").val("Unsubscribe");
+        }
+        else if(label == "Unsubscribe")
+        { $("#notify").val("Join");
+        }
+        else if(label == "Follow")
+        { $("#notify").val("Stop following");
+        }
+        else if(label == "Stop following")
+        { $("#notify").val("Follow");
+        }
+
+}
+
+//function for sending notifications for Join and Unsubscribe
+function notify(node,activity)
+{
+
+  var surl="/"+node+"/group/notify/"+activity+"/"
+  $.ajax({
+    url: surl,
+    beforeSend: function() {
+      $("#ajax_load_image").show();
+      $("#body").css({"opacity":"0.1",})
+    },
+    success: function(data){
+      $("#ajax_load_image").hide();
+      $("#body").css({"opacity":"",})
+      location.reload();
+    },
+    complete: function(){
+      $("#ajax_load_image").hide();
+      $("#body").css({"opacity":"",})
+    }
+});  //end_ajax
+
+
+}
+
+
+$(document).ready(function()
+{
+  var groupn = $("#groupname").val();
+  var label = $("#notify").val();
+  $("#notify").click(function(){
+   if (label == "Follow")
+   {
+     notify(groupn,"join");
+     change_label("Follow");
+     label="Stop following"
+   }
+   else if (label == "Join")
+   {
+     notify(groupn,"join");
+     change_label("Join");
+     label="Unsubscribe"
+   }
+   else if (label == "Unsubscribe")
+   {
+    notify(groupn,"remove");
+    change_label("remove");
+    label="Join"
+   }
+   else if (label == "Stop following")
+   {
+    notify(groupn,"remove");
+    change_label("Stop following");
+    label="Follow"
+   }
+  
+  }); //end notify_click()
+}); //end document_ready()
+
+</script>
+{% endblock %}
+
+<!-- overide meta_content block from base.html -->
+{% block meta_content %}
+
+{% endblock %}
+
+<!-- overide related_content block from base.html -->
+{% block related_content %}
+{% check_is_user_group group_id as is_user_group %}
+
+<p> Members in this group :{{node.author_set|length}} </p>
+
+{% get_policy node request.user as policy  %}
+{% if policy %}
+<!-- Triggers the modals -->
+<a href="#" id ="btn_list_member"data-reveal-id="firstModal" class="radius button">List Members</a>
+
+<!-- Reveal Modals begin -->
+<div id="firstModal" class="reveal-modal" data-reveal>
+
+</div>
+{% endif %}
+<!-- Reveal Model end -->
+
+{% get_group_policy node request.user as policy %}
+{% get_prior_post_node  group_id as groupname     %}
+
+{% check_user_join request groupid as user_is_joined %}
+<input type="hidden" id="groupname" value="{{node}}">
+{% if user_is_joined == "joined" %}
+  {% if is_user_group and node.created_by != request.user %}
+       <input class="button tiny" type="submit" id="notify" value="Stop following" class="button" align="center" style="visibility:visible" >
+  {% else %}
+       <input class="button tiny" type="submit" id="notify" value="Unsubscribe" class="button" align="center" style="visibility:visible">
+  {% endif %} 
+{% elif user_is_joined == "not" or not user.is_authenticated  %}
+  {% if is_user_group and node.created_by != request.user %}
+       <input class="button tiny" type="submit" id="notify" value="Follow" class="button" align="center" style="visibility:visible" >
+  {% else %}
+       <input class="button tiny" type="submit" id="notify" value="Join" class="button" align="center" style="visibility:visible" >
+  {% endif %}
+{% endif %}
+
+{% get_user_object node.created_by as user_obj %}
+{% ifequal  user_obj.username  user.username  %}
+
+{% include "ndf/invite_users.html" %}   
+
+<a href="{% url 'groupchange' groupname  %}">{{ groupname.name }}</a>
+{% endifequal %} 
+
+{% endblock %}
+
+{% block body_content %}
+
+<!--Place for group splash page design-->
+<!--a class="button" data-reveal-id="splash">Intro</a>
+
+<div id="splash" class="reveal-modal medium" data-reveal>
+
+  <div class="large-4 small-centered columns">
+    <h2>Do things:</h2>
+    <ul id="some" class="button-group">
+      <li><a class="button rounded" href="">NUSSD</a></li>
+      <li><a class="button rounded" href="">CUBE</a></li>
+      <li><a class="button rounded" href="">Something Else..</a></li>
+    </ul>
+  </div>
+
+</div-->
+
+{{ block.super }}
+
+{% endblock %}
+

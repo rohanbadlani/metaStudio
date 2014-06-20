@@ -1,0 +1,312 @@
+{% extends "ndf/node_edit_base.html" %}
+
+{% load ndf_tags %}
+
+{% block title %} {{node.name}} - edit {% endblock %}
+
+{% get_user_object node.created_by as user_obj %}
+
+{% block body_content %} 
+
+<!-- css for drawer widget -->
+<style type = "text/css">
+
+.divider-line { font-size: xx-large; color:lightgray; }
+.line-height-2 { line-height:2; }
+.line-height-2pt5 { line-height:2.5; }
+.fontsize-x-large { font-size: x-large; }
+
+.margin-0 { margin: 0 !important ;}
+
+.resource-drawer {
+border-color: #D3D3D3; border-style: solid;
+padding: 0 !important;
+overflow-y: auto;
+}
+
+.resource-drawer li.bullet-item:hover{
+background-color: #ecf0f1; cursor:pointer;
+}
+
+.posted-by{ color: #808080; font-size: small; }
+
+.selected-resource { background-color:lightgray !important ; }
+
+.resource-type-image {
+height:40px;
+background-repeat:no-repeat; background-size: 48px 48px
+}
+
+ul#graph-hover.f-dropdown{
+  width: inherit !important;
+}
+
+#graph-hover > li > a:hover {
+  color: #555555;
+}
+
+</style>
+
+
+<dl class="accordion" data-accordion>
+
+  <dd>
+    <a href="#change_settings">Click here
+ to change {{node.name}}'s settings </a>
+
+    {% if node.name == request.user.username %}
+      <div id="change_settings" class="content">
+
+        <div style='display:table-row;'>
+
+          <div style='display:table-cell;'> 
+            <font size="3" > Following policy</font>
+          </div>
+
+          <div style='display:table-cell;'> 
+            <select name="subscription_policy" id="subscription_policy">
+              <option id="OPEN">OPEN</option>
+              <option id="BY_REQUEST">BY_REQUEST</option>
+              <option id="BY_INVITATION">BY_INVITATION</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div style='display:table-row;'>
+ 
+          <div style='display:table-cell;' colspan='2' align="middle"> 
+            <input type="button" id="changeButton" value="Change"  class="button">
+            <img id="ajax_search" width="50" style="display: none;" src="/static/ndf/images/ajax-wait.gif">
+            <font id="status"></font>
+          </div>
+        </div>
+        
+      </div>
+        
+    {% else %}
+    <div id="change_settings" class="content">
+
+     <div style='display:table;  border:1px;   border-spacing:10px; '>
+
+       <div style='display:table-row;' >
+         <div style='display:table-cell;'> 
+          <font size="3" >Group Type</font>
+        </div>
+
+        <div style='display:table-cell;'> 
+          <select name="group_type" id="group_type">
+           <option id="PUBLIC">PUBLIC</option>
+           <option id="PRIVATE">PRIVATE</option>
+           <option id="ANONYMOUS">ANONYMOUS</option>
+         </select> 
+       </div>
+
+       <div style='display:table-cell;'> 
+        <font size="3" >Group Editing policy</font>
+      </div>
+
+      <div style='display:table-cell;'> 
+        <select name="edit_policy" id="edit_policy">
+         <option id="EDITABLE_NON_MODERATED">EDITABLE_NON_MODERATED</option>
+         <option id="EDITABLE_MODERATED">EDITABLE_MODERATED</option>
+         <option id="NON_EDITABLE">NON_EDITABLE</option>
+       </select> 
+     </div>
+
+   </div>
+
+   <div style='display:table-row;'>
+
+    <div style='display:table-cell;'> 
+      <font size="3" >Group Subscription policy</font>
+    </div>
+
+    <div style='display:table-cell;'> 
+      <select name="subscription_policy" id="subscription_policy">
+       <option id="OPEN">OPEN</option>
+       <option id="BY_REQUEST">BY_REQUEST</option>
+       <option id="BY_INVITATION">BY_INVITATION</option>
+     </select>
+   </div>
+
+   <div style='display:table-cell;'> 
+    <font size="3" >Group Existance visibility</font>
+  </div>
+
+  <div style='display:table-cell;'> 
+    <select name="visibility_policy" id="visibility_policy">
+     <option id="ANNOUNCED">ANNOUNCED</option>
+     <option id="NOT_ANNOUNCED">NOT_ANNOUNCED</option>
+   </select>
+ </div>
+
+</div>
+
+<div style='display:table-row;'>
+
+  <div style='display:table-cell;'> 
+    <font size="3">  Group Member Visibility</font>
+  </div>
+
+  <div style='display:table-cell;'> 
+    <select name="disclosure_policy" id="disclosure_policy">
+     <option id="DISCLOSED_TO_MEM">DISCLOSED_TO_MEM</option>
+     <option id="NOT_DISCLOSED_TO_MEM">NOT_DISCLOSED_TO_MEM</option>
+   </select>
+ </div>
+
+ <div style='display:table-cell;'> 
+  <font size="3" >Group Encryption policy</font>
+</div>
+
+<div style='display:table-cell;'> 
+  <select name="encryption_policy" id="encryption_policy">
+   <option id="NOT_ENCRYPTED">NOT_ENCRYPTED</option>
+   <option id="ENCRYPTED">ENCRYPTED</option>
+ </select>
+ </div>
+
+<div style='display:table-row;'>
+  <div style='display:table-cell;' colspan='2' align="middle"> 
+    <input type="button" id="changeButton" value="Change"  class="button">
+    <img id="ajax_search" width="50" style="display: none;" src="/static/ndf/images/ajax-wait.gif">
+    <font id="status"></font>
+  </div>
+</div>
+{% endif %}
+</dd>
+</dl>
+<br/>
+<dl class="accordion" data-accordion>
+
+  <dd>
+
+    <a id="app_selected" href="#mySystemtype">Click here to select apps for {{node.name}} </a>
+
+      <div id="mySystemtype" class="content">
+
+	<div id="app_drawer" >
+        {% include "ndf/drawer_widget.html" with widget_for="collection_set" %}
+       </div>
+<input type="button" id="save_gapps" class="button small-10 small-push-1 column" value="Save">
+
+
+       </div>
+	  
+
+</dd>
+</dl>
+
+
+{{ block.super }}
+{% endblock %}
+
+
+
+{% block script %}
+var datas= ""
+$(document).on('click',"#app_selected",function(){
+$('#mySystemtype #collection_set_drawer1').html("");
+ $('#mySystemtype #collection_set_drawer2').html("");
+ $('#mySystemtype #collection_set_drawer1').html('<li class="price"><input type="text" placeholder="Type here to search in the resources" id="collection_set_search" class="margin-0"></li>');
+var url='/{{groupid}}/group/app_selection/'+'{{node}}';
+
+ $.getJSON( url, function( data ) {
+  $.each(data ,function(index , drawer_elements){
+   if(index == 0)
+    {
+     $.each(drawer_elements.drawer1, function(index, element) {
+        $('#mySystemtype #collection_set_drawer1').append("<li id='"+element.id+"' class='bullet-item text-left'>"+element.name+"</li>");
+      });
+   }
+   if(index == 1)
+    {
+    $.each(drawer_elements.drawer2, function(index, element) {
+        $('#mySystemtype #collection_set_drawer2').append("<li id='"+element.id+"' class='bullet-item text-left'>"+element.name+"</li>");
+      });
+    }
+
+ });
+   });
+});
+
+
+function get_all_data(){
+ $.each($('#mySystemtype #collection_set_drawer2 li'),function(index,item){
+         datas=datas+String(item.id)+",";
+         });
+}
+
+
+$(document).on('click',"#save_gapps",function(){
+get_all_data();
+apps_to_set=datas;
+$.ajax({
+url:'/{{groupid}}/group/app_selection/{{node}}',
+type: 'POST',
+data: {apps_to_set:apps_to_set,csrfmiddlewaretoken: '{{csrf_token}}'},
+       beforeSend: function(){
+              $("#ajax_load_image").show();
+              $("#body").css({"opacity":"0.1",})
+                              },
+        success: function(data){
+                       alert("Successfully set apps for this group");
+           },
+       complete: function(){
+                    $("#ajax_load_image").hide();
+                $("#body").css({"opacity":"",})
+
+          }
+
+}); //end of ajax
+}); //end_of_click_save_gapps
+
+{% get_user_object node.created_by as user_obj %}
+{% ifequal  user_obj.username  user.username  %}
+var edit_policy  = document.getElementById("edit_policy")
+var group_type  = document.getElementById("group_type")
+var subscription_policy  = document.getElementById("subscription_policy")
+var visibility_policy  = document.getElementById("visibility_policy")
+var disclosure_policy  = document.getElementById("disclosure_policy")
+var encryption_policy  = document.getElementById("encryption_policy")
+{% if node.edit_policy %}
+edit_policy.selectedIndex = edit_policy.options.{{node.edit_policy}}.index
+{% endif %}
+{% if node.group_type %}
+group_type.selectedIndex = group_type.options.{{node.group_type}}.index
+{% endif %}
+{% if node.subscription_policy %}
+subscription_policy.selectedIndex = subscription_policy.options.{{node.subscription_policy}}.index
+{% endif %}
+{% if node.visibility_policy %}
+visibility_policy.selectedIndex = visibility_policy.options.{{node.visibility_policy}}.index
+{% endif %}
+{% if node.disclosure_policy %}
+disclosure_policy.selectedIndex = disclosure_policy.options.{{node.disclosure_policy}}.index
+{% endif %}
+{% if node.encryption_policy %}
+encryption_policy.selectedIndex = encryption_policy.options.{{node.encryption_policy}}.index
+{% endif %}
+
+
+$(document).on('click',"#changeButton",function(){
+
+$.ajax({
+url:'/{{node}}/ajax/change_group_settings/',
+type: 'POST',
+data: {edit_policy:edit_policy.value, group_type:group_type.value, subscription_policy:subscription_policy.value, visibility_policy:visibility_policy.value, disclosure_policy:disclosure_policy.value, encryption_policy:encryption_policy.value, csrfmiddlewaretoken: '{{ csrf_token }}', group_id:"{{node}}"},
+beforeSend: function() {
+$("#ajax_search").show();
+},
+success: function(result){
+$("#ajax_search").hide();
+$("#status").html(result);
+}
+});
+});
+
+{% else %}
+{% endifequal %}
+{% endblock %}
+

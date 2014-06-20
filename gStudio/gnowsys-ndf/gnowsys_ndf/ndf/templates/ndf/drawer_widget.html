@@ -1,0 +1,292 @@
+<br/><br/>
+<div>
+
+  <!-- Title only row -->
+  <div class="row">
+    <div class="small-5 columns">
+      Select from following resources :
+    </div>
+
+    <div class="small-5 columns">
+      Add selected to following Collection : 
+    </div>
+  </div>  
+  <br/>
+  
+
+  <!-- Row containing LHS Resources and middle Navigation and RHS Collection -->
+  <div class="row">
+
+    <!-- LHS Resources drawer -->
+    <div class="small-6 columns resource-drawer">
+      
+      <ul class="pricing-table" id="{{widget_for}}_drawer1">        
+
+        <!-- Searchbox as first li in the  Resources drawer -->
+        {% if drawer1 != "None" %}
+        <li class="price">
+          <input type="text" class="margin-0" id="{{widget_for}}_search" placeholder="Type here to search in the resources"/>
+        </li>
+
+        {% for key, value in drawer1.items %}
+
+        <li class="bullet-item text-left" value={{key}} > 
+          <input type="hidden" class="node_id" value={{key}} />
+          <div class="row">
+            <div class="small-1 columns resource-type-image" style="background-image: url({% url 'getImageThumbnail' groupid key %}), url(/static/ndf/images/doc.png); ">
+            </div>
+
+            <div class="small-11 columns">
+
+              <div class="row">
+                <div class="small-12 columns">
+                  <b> {{value.name}} </b>
+                </div>                
+                <div class="small-12 columns text-left" style="padding-top:3px">
+                  <i class="posted-by" >{{ value.member_of_names_list|join:', ' }} by <a href="#" class="user" data-gnow="">{{value.user_details_dict.created_by}}</a> on {{value.created_at|date:"j F Y"}} </i>
+                </div>     
+              </div>
+
+              <div class="row">
+
+               <div class="small-12 columns text-left" style="padding-top:5px;">
+		 {{ value.html_content|safe|striptags|truncatechars:50 }}
+               </div>  
+              </div>
+            </div>
+          </div>
+
+        </li>
+        {% endfor %}
+        
+        {% else %}  
+        <li class="bullet-item" > <i>No content of selected type ! </i> </li>
+        {% endif %}
+
+      </ul>
+      
+    </div>
+
+    <!-- For arrows Up, Down, Left, Right -->
+    <div class="small-1 columns  text-center" >
+
+    	<span id="{{widget_for}}_btnUp" class="fontsize-x-large">
+     		<i class="fi-arrow-up coll-arrows"></i>
+    	</span>
+    	<br/>
+     
+	    <span id="{{widget_for}}_btnRight" class="fontsize-x-large">
+     		<i class="fi-arrow-right coll-arrows"></i>
+     	</span>
+     	<br/>
+     
+	    <span id="{{widget_for}}_btnLeft" class="fontsize-x-large">
+     		<i class="fi-arrow-left coll-arrows"></i>
+     	</span>
+     	<br/>	
+     
+	    <span id="{{widget_for}}_btnDown" class="fontsize-x-large">
+     		<i class="fi-arrow-down coll-arrows"></i>
+     	</span>
+     	     
+   </div>
+
+   <!-- For collection created on RHS -->
+   <div class="small-5 columns resource-drawer">
+
+    <ul class="pricing-table" id="{{widget_for}}_drawer2">        
+      {% if drawer2 != "None" %}
+
+      {% for value in drawer2 %}
+      <li class="bullet-item" value={{value.pk}} > 
+        <input type="hidden" class="node_id" value={{value.pk}} />
+        <div class="row">
+          <div class="small-1 columns resource-type-image" style="background-image: url({% url 'getImageThumbnail' groupid value.pk %}), url(/static/ndf/images/doc.png); ">
+          </div>
+
+          <div class="small-11 columns">
+
+            <div class="row">
+              <!-- <div class="small-5 columns text-left"> -->
+              <div class="small-12 columns text-left">
+                <b> {{value.name}} </b>   
+              </div>                
+              <!-- <div class="small-7 columns text-right"> -->
+              <div class="small-12 columns text-left" style="padding-top:3px">
+                <i class="posted-by">{{ value.member_of_names_list|join:', ' }} by <a href="#" class="user" data-gnow="">{{value.user_details_dict.created_by}}</a> on {{value.created_at|date:"j F Y"}} </i>
+              </div>     
+            </div>
+
+            <div class="row">
+              <div class="small-12 columns text-left" style="padding-top:5px;">
+		{{ value.html_content|safe|striptags|truncatechars:50 }}
+              </div>
+           </div>
+          </div>
+        </div>
+
+      </li>
+      {% endfor %}
+
+      {% endif %}
+    </ul>
+
+  </div>
+  <!-- End of Collection created on RHS -->
+
+</div>
+</div>
+
+<input id="{{widget_for}}_list" type="hidden" name="{{widget_for}}_list" value="" />
+
+
+<script type="text/javascript">
+
+    //To allocate space of 10 resources listing for drawers.
+    liHeight = $("#{{widget_for}}_drawer1 > li").outerHeight();
+    $(".resource-drawer").height(liHeight * 15);
+
+    // To select the single as well as multiple items from list 
+    $(document).on('click','#{{widget_for}}_drawer1 li.bullet-item',function(e){
+    //$("#{{widget_for}}_drawer1 li.bullet-item").on("click", function(e) {
+
+      if (e.ctrlKey)
+      {        
+        $(this).toggleClass('selected-resource');
+      } 
+      else
+      {
+        $('.bullet-item').removeClass('selected-resource');           
+        $(this).addClass('selected-resource');        
+      }                   
+        
+    }); 
+
+     $(document).on('click','#{{widget_for}}_drawer2 li.bullet-item',function(e){
+    //$("#{{widget_for}}_drawer2 li.bullet-item").click(function(e){
+      
+      if (e.ctrlKey)
+      {        
+        $(this).toggleClass('selected-resource');
+      } 
+      else
+      {
+        $('.bullet-item').removeClass('selected-resource');           
+        $(this).addClass('selected-resource');        
+      }     
+      
+    });
+    
+    
+      //For left drawer selected resources and right button click
+      $("#{{widget_for}}_btnRight").click(function() { 
+        var selectedOpts = $("#{{widget_for}}_drawer1 li.selected-resource"); 
+        $("#{{widget_for}}_drawer1 li.selected-resource").removeClass("selected-resource");
+
+        if (selectedOpts.length == 0){
+          alert("Nothing to move.");
+        }
+
+        $("#{{widget_for}}_drawer2").append($(selectedOpts).clone(true));
+        $(selectedOpts).remove();
+      });  
+
+      //For right drawer selected resources and left button click
+      $("#{{widget_for}}_btnLeft").click(function() {
+
+        var selectedOpts = $("#{{widget_for}}_drawer2 li.selected-resource");
+        $("#{{widget_for}}_drawer2 li.selected-resource").removeClass("selected-resource");
+
+        if (selectedOpts.length == 0) {
+          alert("Nothing to move.");
+        }
+
+        $("#{{widget_for}}_drawer1").append($(selectedOpts).clone(true));
+        $(selectedOpts).remove();
+      });  
+
+
+      function checkUpDownButton()
+      {
+        for(var i=0; i<collSelected.length-1; i++)
+        {
+          var flag;
+          if( (collSelected[i].nextElementSibling) == (collSelected[i+1]) ){
+            flag = true;
+          }
+          else{
+            flag = false;
+          }
+        }
+        return flag;
+      }
+
+      //For UP Button pressed :
+      $("#{{widget_for}}_btnUp").click(function() {
+
+        collSelected = $("#{{widget_for}}_drawer2 li.selected-resource");
+
+        if( collSelected ){
+
+          //If multiple element's are selected :
+          if( collSelected.length > 1 ){
+
+            if( checkUpDownButton ){
+              prevFirstSel = collSelected[0].previousElementSibling;
+              lastSel = collSelected[collSelected.length-1];
+
+              $(prevFirstSel).insertAfter(lastSel);  
+            }
+          } 
+          
+          //If only one element is selected :
+          else{
+            currSel =  collSelected[0];
+            $(currSel).insertBefore(currSel.previousElementSibling);
+          }
+        }
+      });
+
+      //For DOWN Button pressed :
+      $("#{{widget_for}}_btnDown").click(function() {
+
+        collSelected = $("#{{widget_for}}_drawer2 li.selected-resource");
+
+        if( collSelected ){
+
+          //If multiple element's are selected :
+          if( collSelected.length > 1 ){
+
+            if( checkUpDownButton ){
+              FirstSel = collSelected[0];
+              nexttoLastSel = collSelected[collSelected.length-1].nextElementSibling;
+
+              $(nexttoLastSel).insertBefore(FirstSel);  
+            }
+          } 
+          
+          //If only one element is selected :
+          else{
+            currSel =  collSelected[0];
+            $(currSel).insertAfter(currSel.nextElementSibling);
+          }
+        }
+      });
+
+
+
+
+  // Search-Box for LHS drawer of resources
+    $(document).on('keydown keypress keyup change', '#{{widget_for}}_search' ,function(){
+    //$('#{{widget_for}}_search').bind('keydown keypress keyup change', function() {
+    var search = (this.value).toLowerCase();
+    var $li = $("#{{widget_for}}_drawer1 li.bullet-item").hide()
+    $li.filter(function() {
+      return $(this).text().toLowerCase().indexOf(search) >= 0;
+    }).show();
+  });
+
+</script>
+
+
+

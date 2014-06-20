@@ -1,0 +1,68 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2014.06.10.09.51.04;	author rohan;	state Exp;
+branches;
+next	;
+
+
+desc
+@This document (test34) is created by rohan on 10 June 2014
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@{
+    "_id": {
+        "$oid": "5396d508c5989a2da084135c"
+    },
+    "_type": "GSystem",
+    "access_policy": "PUBLIC",
+    "altnames": null,
+    "author_set": [],
+    "collection_set": [],
+    "comment_enabled": null,
+    "content": null,
+    "content_org": null,
+    "contributors": [
+        1
+    ],
+    "created_at": 1402413664359,
+    "created_by": 1,
+    "featured": null,
+    "group_set": [
+        {
+            "$oid": "53846008c5989a11fc8e0f17"
+        }
+    ],
+    "language": "en",
+    "last_update": 1402413664359,
+    "location": [],
+    "login_required": null,
+    "member_of": [
+        {
+            "$oid": "53846008c5989a11fc8e0f0e"
+        }
+    ],
+    "modified_by": 1,
+    "module_set": [],
+    "name": "test34",
+    "plural": null,
+    "post_node": [],
+    "prior_node": [],
+    "property_order": [],
+    "start_publication": null,
+    "status": "DRAFT",
+    "tags": [],
+    "type_of": [],
+    "url": null
+}@

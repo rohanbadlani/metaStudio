@@ -1,0 +1,58 @@
+{% extends "ndf/base.html" %}
+{% load ndf_tags %}
+{% block title %} Image Gallery {% endblock %}
+{% block body_content %} 
+{% get_group_name groupid as group_name_tag %}
+<script type="text/javascript" src="http://jqueryrotate.googlecode.com/svn/trunk/jQueryRotate.js"></script>
+{% if already_uploaded %} 
+<div id="message">
+  <span style="color:red">Listed below files are already uploaded please choose different files</span>
+  <ul>
+    {% for each in already_uploaded %}
+    <li>{{each}}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+<form id ="file_search" enctype="multipart/form-data" method="GET" action="{% url 'image_search' group_name_tag %}">
+  <div class="row"  style="padding-top:20px">
+    <div class="large-7 columns">
+      <div class="row collapse">
+	  <div class="small-8 columns">
+            <input type="text" placeholder="search images" name="search">
+	  </div>
+	  <div class="small-2 columns">
+            <a href="#" class="button postfix" onclick="document.forms[0].submit();return false;">
+	      <i class="fi-magnifying-glass large">search</i>
+	    </a>
+	  </div>
+	  <div class="small-2 columns">
+            <a href="{% url 'uploadDoc' group_name_tag %}?next={{request.path}}" class="button postfix secondary">
+	      <i class="fi-paperclip">upload</i>
+	    </a>
+	  </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ul class="clearing-thumbs" data-clearing>
+  {% for image in imageCollection %}
+  <li  class="clearing-featured-img">
+    <a href="{% url 'get_mid_size_img' group_name_tag image %}">
+      <img  src="{% url 'getImageThumbnail' group_name_tag image %}"  class="th" data-caption="<div class='img_rotate'> <i class='fi-refresh large'></i> </div><a href='{% url 'image_detail' group_name_tag image %}'>{{image.name}}</a> <script type='text/javascript'>
+											   var angle = 0;
+											   $('.img_rotate').on('click', function() {
+											   angle += 90;
+											   $('.visible-img img').rotate(angle);
+											   });
+											   </script>" >
+      </img>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

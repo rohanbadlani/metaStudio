@@ -1,0 +1,55 @@
+{% load ndf_tags %}
+{% get_group_name groupid as group_name_tag %}
+<!-- GApps Menubar -->
+{% check_gapp_menus groupid as check_menu %}
+
+
+{% if check_menu %}
+
+{% get_apps_for_groups groupid as gapps %}
+
+
+{% endif %}
+
+
+<input type="hidden" value="{{newgroup}}">
+
+{% for index_key, app_dict in gapps.items %}
+
+<li class="
+
+	{% comment %} Sets active-menu class on active app{% endcomment %}
+	{% if app_dict.name|lower == selectedGapp|lower %}
+	
+	active 
+
+	{% elif app_dict.id|safe == selectedGapp|safe %}
+
+	active
+	
+	{% endif %}
+	app">
+	<a class="app" href="{% url 'GAPPS' group_name_tag app_dict.name %}">
+
+	{% comment %} Includes an app icon if found{% endcomment %}
+	{% if app_dict.name|lower == "page" %}
+	<i class='fi-page left'></i>
+	{% elif app_dict.name|lower == "group" %}
+	<i class='fi-torsos left'></i>
+	{% elif app_dict.name|lower == "file" %}
+	<i class='fi-play'></i>
+	{% elif app_dict.name|lower == "forum" %}
+	<i class='fi-comments'></i>
+	{% elif app_dict.name|lower == "course" %}
+	<i class='fi-book'></i>
+	{% elif app_dict.name|lower == "quiz" %}
+	<i class='fi-graph-bar'></i>
+	{% endif %}
+
+	{{app_dict.name|title}}</a>
+
+</li>
+
+{% endfor %}
+
+<!-- ============= -->
