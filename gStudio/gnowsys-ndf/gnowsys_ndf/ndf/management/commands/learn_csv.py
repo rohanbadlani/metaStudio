@@ -23,13 +23,14 @@ from gnowsys_ndf.ndf.models import *
 db = get_database()
 collection = get_database()[GSystem.collection_name]
 import csv
+import os
 
-
+fn = os.path.join(os.path.dirname(__file__), '../../static/ndf/wikidata/data.csv')
 
 class Command(BaseCommand):
 	def handle(self, *args, **options):
 			
-		with open('/home/aditya/Desktop/data.csv','rb') as f:
+		with open(fn,'rb') as f:
 			r = csv.reader(f,delimiter ='	')
 			for row in r:
 				for a in row:
